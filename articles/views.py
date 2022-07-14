@@ -1,6 +1,6 @@
-from django.views.generic import ListView, DetailView  # new
-from django.views.generic.edit import UpdateView, DeleteView  # new
-from django.urls import reverse_lazy  # new
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.urls import reverse_lazy
 from .models import Article
 
 
@@ -9,12 +9,12 @@ class ArticleListView(ListView):
     template_name = "article_list.html"
 
 
-class ArticleDetailView(DetailView):  # new
+class ArticleDetailView(DetailView):
     model = Article
     template_name = "article_detail.html"
 
 
-class ArticleUpdateView(UpdateView):  # new
+class ArticleUpdateView(UpdateView):
     model = Article
     fields = (
         "title",
@@ -23,7 +23,17 @@ class ArticleUpdateView(UpdateView):  # new
     template_name = "article_edit.html"
 
 
-class ArticleDeleteView(DeleteView):  # new
+class ArticleDeleteView(DeleteView):
     model = Article
     template_name = "article_delete.html"
     success_url = reverse_lazy("article_list")
+
+
+class ArticleCreateView(CreateView):
+    model = Article
+    template_name = "article_new.html"
+    fields = (
+        "title",
+        "body",
+        "author",
+    )
